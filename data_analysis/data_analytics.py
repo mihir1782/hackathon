@@ -4,7 +4,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-#loaded data
+#loaded data. Replace with where you downloaded data
+#Data: https://www.kaggle.com/datasets/fedesoriano/electric-power-consumption
 energy_df = pd.read_csv(r'C:\Users\firea\Desktop\uwu\Intelligent_abnormal_electricity_usage_dataset_REALWORLD.csv')
 #dropped null values
 energy_df.isnull().sum()
@@ -12,7 +13,7 @@ energy_df = energy_df.dropna()
 #dropped useless column
 energy_df = energy_df.drop(columns=['Meter_Id'], errors='ignore')
 
-
+#Removing kwh from values in order to translate columns from strings to floats
 numeric_cols_with_units = ["Expected_Energy(kwh)", "Actual_Energy(kwh)", "Cluster_Avg_Energy(kwh)"]
 for col in numeric_cols_with_units:
     energy_df[col] =energy_df[col].replace('[^\d\.]', '', regex=True).astype(float)
@@ -44,6 +45,7 @@ importance_df = pd.DataFrame({
     'Importance': feature_importances
 }).sort_values(by='Importance', ascending=False)
 
+#importance feature graph
 plt.figure(figsize=(10,6))
 plt.barh(importance_df['Feature'], importance_df['Importance'], color='skyblue')
 plt.gca().invert_yaxis()  
