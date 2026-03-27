@@ -22,6 +22,7 @@ energy_df["Connected_Load(kw)"] = energy_df["Connected_Load(kw)"].replace('[^\d\
 X = energy_df.drop(columns=["Date", "Region_Code", "Dwelling_Type", "Abnormal_Usage"])
 y = energy_df["Abnormal_Usage"]
 
+#Creating random forest & classification model
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
